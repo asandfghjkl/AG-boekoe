@@ -48,7 +48,7 @@
                                     <td>{{$order->id}}</td>
                                     <td>{{$order->user->name}}</td>
                                     <td>{{$order->payment_type}}</td>
-                                    <td>{{$order->total_price}}</td>
+                                    <td>Rp{{$order->total_price}}</td>
                                     <td>
                                         @if($order->order_status == 1)
                                         {!! Form::open(['method'=>'PATCH', 'route'=>['orders.update', $order->id]]) !!}

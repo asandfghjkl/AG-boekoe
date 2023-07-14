@@ -33,13 +33,13 @@
                                 <td>{{$order_detail->book_name}}</td>
                                 <td>{{$order_detail->book_quantity}}</td>
                                 <td>{{$order_detail->price}} TK</td>
-                                <td>{{$order_detail->price * $order_detail->book_quantity}} TK</td>
+                                <td>Rp{{$order_detail->price * $order_detail->book_quantity}}</td>
                             </tr>
                         @endforeach
                         <tr>
                             <td colspan="2"></td>
                             <td><strong>Total</strong></td>
-                            <td><strong>{{$order->total_price}} TK</strong></td>
+                            <td><strong>Rp{{$order->total_price}}</strong></td>
                         </tr>
                         </tbody>
                     </table>
