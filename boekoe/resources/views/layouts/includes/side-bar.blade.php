@@ -1,6 +1,16 @@
 <div class="col-md-4">
     <div class="sidebar-items">
         <div class="card my-4">
+            <form action="{{route('all-books')}}">
+                <div class="input-group input-group-sm m-1">
+                    <input type="text" name="term" value="{{request('term')}}" class="form-control" placeholder="Search Book..">
+                    <div class="input-group-append">
+                        <button class="btn btn-dark" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card my-4">
             <div class="card-header bg-dark text-white">
                 <h4>Books Categories</h4>
             </div>

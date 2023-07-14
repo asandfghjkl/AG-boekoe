@@ -27,6 +27,7 @@
                     <h3><a href="{{route('bookshop.home')}}" class="text-blue"> Boekoe.</a></h3>
                 </div>
             </div>
+            
             <div class="col-md-6">
                 <div class="shopping-cart text-right">
                     <a href="{{route('cart')}}" class="text-white"><i class="fas fa-shopping-cart fa-2x m-1"></i>
@@ -34,7 +35,6 @@
                             <span class="count-cart">{{Cart::content()->count()}}</span>
                         @endif
                     </a>
-
                 </div>
             </div>
         </div>
