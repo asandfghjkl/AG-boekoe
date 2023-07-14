@@ -1,9 +1,16 @@
 @extends('layouts.master')
 
 @section('content')
-    
-
     <section class="main-content">
+        <section class="home">
+
+            <div class="content">
+               <h3>Come for the book,</h3>
+               <h3>leave with knowledge.</h3>
+               <p>A place where you can find all your favorite books and authors. </p>
+            </div>
+         
+         </section>
         <div class="container">
             <div class="row">
                 <div class="col-md-8">

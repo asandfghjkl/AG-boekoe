@@ -3,15 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Book;
-use App\Http\Requests\BooksCreateRequest;
-use App\Http\Requests\BooksUpdateRequest;
 use App\Image;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Intervention\Image\ImageManagerStatic as Photo;
 use Illuminate\Support\Facades\DB;
 
-class AdminBooksController extends AdminBaseController
+class AdminBooksController extends Controller
 {
     public function index()
     {
@@ -24,24 +22,32 @@ class AdminBooksController extends AdminBaseController
     {
         return view('admin.books.create');
     }
-    public function store(BooksCreateRequest $request)
+
+    public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' =>'required|max:100|unique:categories',
-            'slug' =>'required|max:100|unique:categories',
+        $rules = [
+            'name' =>'required|max:100',
+            'slug' =>'required|max:100|unique:books',
             'description' =>'required|max:250',
             'author_id' =>'required',
             'category_id' =>'required',
-            'image_id' => 'image|mimes:jpeg,png,jpg,gif,svg',
+            'image_id' => 'image|max:1000',
             'quantity' =>'numeric|min:0',
             'price' =>'numeric|min:0'
-        ]);
+        ];
+
+        $message = [
+            'image_id.image' => 'Image should be PNG, jpg, jpeg type'
+        ];
+
+        $this->validate($request, $rules, $message);
+
 
         $input = $request->all();
 
         if($file = $request->file('image_id'))
         {
-            $name = $file->getClientOriginalName();
+            $name = time().$file->getClientOriginalName();
 
             $image_resize = Photo::make($file->getRealPath());
             $image_resize->resize(340,380);
@@ -52,10 +58,22 @@ class AdminBooksController extends AdminBaseController
             $input['image_id'] = $image->id;
         }
         
-        Book::create($input);
+        $create_book = Book::create($input);
+
         return redirect('/admin/books')
             ->with('success_message', 'Book created successfully');
 
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
     }
 
     public function edit($id)
@@ -64,8 +82,25 @@ class AdminBooksController extends AdminBaseController
         return view('admin.books.edit', compact('book'));
 
     }
-    public function update(BooksUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        $rules = [
+            'title'         => 'required',
+            'slug'          => 'required|unique:books,slug,'.$id,
+            'description'   => 'required',
+            'author_id'     => 'required',
+            'category_id'   => 'required',
+            'image_id'      => 'image|max:1000',
+            'price'         => 'required|numeric|min:0',
+            'quantity'      => 'required|numeric|min:0'
+        ];
+
+        $message = [
+            'image_id.image' => 'Image should be PNG, jpg, jpeg type'
+        ];
+
+        $this->validate($request, $rules, $message);
+
         $input = $request->all();
 
         $input['price'] =  $request->price;

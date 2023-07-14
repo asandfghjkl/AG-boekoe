@@ -86,6 +86,7 @@
 
                 <div class="form-group">
                     {!! Form::label('image_id', 'Book Image') !!}
+                    {!! Form::file('image_id', ['class'=>'form-control '.($errors->has('image_id')? 'is-invalid':''), 'rows'=> 5]) !!}
                     <small>Max size 1MB</small>
                     @if($errors->has('image_id'))
                         <span class="invalid-feedback">

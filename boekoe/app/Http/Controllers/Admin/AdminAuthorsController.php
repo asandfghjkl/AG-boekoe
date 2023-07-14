@@ -51,6 +51,7 @@ class AdminAuthorsController extends Controller
         $this->validate($request, $rules, $message);
 
         $input = $request->all();
+        
         if($file = $request->file('image_id'))
         {
             $name = time().$file->getClientOriginalName();

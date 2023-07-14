@@ -21,6 +21,7 @@
                 <div class="col-lg-9">
                     <div class="card-body">
                         {!! Form::model($author, ['method'=>'PATCH', 'action'=>['Admin\AdminAuthorsController@update', $author->id], 'files'=>true]) !!}
+                        
                         <div class="form-group">
                             {!! Form::label('name') !!}
                             {!! Form::text('name', null, ['class'=>'form-control '.($errors->has('name')? 'is-invalid': '')]) !!}
